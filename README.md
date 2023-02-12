@@ -11,4 +11,6 @@ Open a terminal and log in as the root user or use sudo to run the following com
 
 Run the following command to add a new user:
 
-<useradd -m -s /bin/false USERNAME>
+```
+useradd -m -s /bin/false USERNAME>
+```
