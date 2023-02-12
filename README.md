@@ -1,16 +1,19 @@
-# kodecloudengineer
-
+# Kodecloud Engineer
 This document is designed to provide a comprehensive overview of the commands and tasks that will be performed during the Kodecloud engineer program.
 
 
-# 1. Create a Linux User with non-interactive shell
+## System Administrator, Nautilus, xFusionCorp
 
-To create a Linux user with a non-interactive shell, you can use the following steps:
+ 1. Create a Linux User with non-interactive shell :
 
-Open a terminal and log in as the root user or use sudo to run the following commands.
+    To create a Linux user with a non-interactive shell, you can use the following steps:
 
-Run the following command to add a new user:
+    Open a terminal and log in as the root user or use sudo to run the following commands.
 
-```
-useradd -m -s /bin/false USERNAME>
-```
+    Run the following command to add a new user:
+
+    ```
+    useradd -m -s /bin/false USERNAME
+    ```
+
+    Replace ***`USERNAME`*** with the desired username. The ***`-m`*** option creates a home directory for the user, and the ***`-s`*** option sets the default shell to ***`/bin/false`***, which is a non-interactive shell.
