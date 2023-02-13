@@ -17,3 +17,9 @@ This document is designed to provide a comprehensive overview of the commands an
     ```
 
     Replace ***`USERNAME`*** with the desired username. The ***`-m`*** option creates a home directory for the user, and the ***`-s`*** option sets the default shell to ***`/bin/false`***, which is a non-interactive shell.
+
+ 2. Give execution permission to script. Make sure that every users are able to use it :
+
+    ```
+    chmod 755 /usr/local/script.sh
+    ```
