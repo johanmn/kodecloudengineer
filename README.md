@@ -23,3 +23,12 @@ This document is designed to provide a comprehensive overview of the commands an
     ```
     chmod 755 /usr/local/script.sh
     ```
+
+ 3. During the daily standup, it was pointed out that the timezone across Nautilus Application Servers in Stratos Datacenter doesn't match with that of the local datacenter's
+    timezone, which is America/Martinique. Correct the mismatch. :
+
+    
+    ```
+    sudo timedatectl set-timezone America/Martinique
+    ```
+   
