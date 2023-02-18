@@ -62,4 +62,14 @@ This document is designed to provide a comprehensive overview of the commands an
 
    To solve the issue the "::1" was commented from /etc/hosts file and the postfix service was restarted.
 
-   
+5. One of the Nautilus developers has copied confidential data on the jump host in Stratos DC. That data must be copied to one of the app servers. Because developers do not have access to app servers, they asked the system admins team to accomplish the task for them.
+Copy /tmp/nautilus.txt.gpg file from jump server to App Server 1 at location /home/app.
+
+   thor@jump_host ~$ scp /tmp/nautilus.txt.gpg tony@172.16.238.10:/home/app
+   The authenticity of host '172.16.238.10 (172.16.238.10)' can't be established.
+   ECDSA key fingerprint is SHA256:SySamszyWhhLGFiybhGBqfrr8g55wS/3e37ZpBOvICs.
+   ECDSA key fingerprint is MD5:6d:31:18:2a:f9:07:f3:29:dd:0a:d3:1f:6e:04:0a:db.
+   Are you sure you want to continue connecting (yes/no)? yes
+   Warning: Permanently added '172.16.238.10' (ECDSA) to the list of known hosts.
+   tony@172.16.238.10's password: 
+   nautilus.txt.gpg                                                               100%   74   374.3KB/s   00:00
