@@ -73,3 +73,22 @@ Copy /tmp/nautilus.txt.gpg file from jump server to App Server 1 at location /ho
    Warning: Permanently added '172.16.238.10' (ECDSA) to the list of known hosts.
    tony@172.16.238.10's password: 
    nautilus.txt.gpg                                                               100%   74   374.3KB/s   00:00
+
+6. There was some users data copied on Nautilus App Server 2 at /home/usersdata location by the Nautilus production support team in Stratos DC. Later they found that they mistakenly mixed up different user data there. Now they want to filter out some user data and copy it to another location. Find the details below:
+On App Server 2 find all files (not directories) owned by user jim inside /home/usersdata directory and copy them all while keeping the folder structure (preserve the directories path) to /blog directory.
+
+      To find all files owned by user "jim" inside the "/home/usersdata" directory, you can use the find command with the -type f and -user options.
+
+   The -type f option ensures that only files are found, and the -user jim option will find files owned by the user "jim".
+
+   The cp command can then be used to copy the files to the "/blog" directory while preserving the directory structure. To preserve the directory structure, you can use the --parents option with the cp command.
+
+   Here's the command you can use:
+
+   ```
+   find /home/usersdata -type f -user jim -exec cp --parents {} /blog \;
+   ```
+
+   This will find all the files owned by user "jim" inside the "/home/usersdata" directory and its subdirectories, and copy them to the "/blog" directory while preserving the directory structure. The -exec option is used to execute the cp command for each file found.
+
+   Note that the --parents option with cp is used to create the same directory structure as the original file in the destination directory.
