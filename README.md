@@ -92,3 +92,18 @@ On App Server 2 find all files (not directories) owned by user jim inside /home/
    This will find all the files owned by user "jim" inside the "/home/usersdata" directory and its subdirectories, and copy them to the "/blog" directory while preserving the directory structure. The -exec option is used to execute the cp command for each file found.
 
    Note that the --parents option with cp is used to create the same directory structure as the original file in the destination directory.
+
+7. A developer james has been assigned Nautilus project temporarily as a backup resource. As a temporary resource for this project, we need a temporary user for james. It’s a good idea to create a user with a set expiration date so that the user won't be able to access servers beyond that point.
+Therefore, create a user named james on the App Server 3. Set expiry date to 2021-04-15 in Stratos Datacenter. Make sure the user is created as per standard and is in lowercase
+
+   Use the following command to create a new user named "james":
+
+   ```
+   sudo adduser james
+   ```
+
+   Once the user is created, you can use the chage command to set the expiry date. The chage command is used to modify the user password and account expiry information. Use the following command to set the expiry date to April 15, 2021:
+
+   ```
+   sudo chage -E 2021-04-15 james
+   ```
