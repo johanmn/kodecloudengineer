@@ -107,3 +107,24 @@ Therefore, create a user named james on the App Server 3. Set expiry date to 202
    ```
    sudo chage -E 2021-04-15 james
    ```
+
+8. Install and configure ntp server on the App server 01. Make sure that it uses the following ntp server '2.cn.pool.ntp.org'
+
+   ```
+   yum install -y ntp
+   ```
+
+   ```
+
+   Ensure that the NTP service starts automatically when the server boots up, run the command 
+   
+   ```
+   systemctl enable ntpd
+
+   ```
+
+   To add the NTP server '2.cn.pool.ntp.org' in the /etc/ntp.conf file on your CentOS server, add the following line :
+
+   ```
+   server 2.cn.pool.ntp.org
+   ```
