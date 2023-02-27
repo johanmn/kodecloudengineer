@@ -114,17 +114,24 @@ Therefore, create a user named james on the App Server 3. Set expiry date to 202
    yum install -y ntp
    ```
 
-   ```
 
-   Ensure that the NTP service starts automatically when the server boots up, run the command 
-   
+   Ensure that the NTP service starts automatically when the server boots up, run the command :
+
+
    ```
    systemctl enable ntpd
 
    ```
+
 
    To add the NTP server '2.cn.pool.ntp.org' in the /etc/ntp.conf file on your CentOS server, add the following line :
 
    ```
    server 2.cn.pool.ntp.org
    ```
+
+9. During the monthly compliance meeting, it was pointed out that several servers in the Stratos DC do not have a valid banner. The security team has provided serveral approved templates which should be applied to the servers to maintain compliance. These will be displayed to the user upon a successful login.
+Update the message of the day on all application and db servers for Nautilus. Make use of the approved template located at /home/thor/nautilus_banner on jump host
+
+
+   To update the motd on all app and db servers, update the file /etc/motd on the concerned servers with the content of the approved template located at /home/thor/nautilus_banner.
