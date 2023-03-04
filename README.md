@@ -135,3 +135,19 @@ Update the message of the day on all application and db servers for Nautilus. Ma
 
 
    To update the motd on all app and db servers, update the file /etc/motd on the concerned servers with the content of the approved template located at /home/thor/nautilus_banner.
+
+10. The Nautilus system admins team has prepared scripts to automate several day-to-day tasks. They want them to be deployed on all app servers in Stratos DC on a set schedule. Before that they need to test similar functionality with a sample cron job. Therefore, perform the steps below:
+a. Install cronie package on all Nautilus app servers and start crond service.
+b. Add a cron */5 * * * * echo hello > /tmp/cron_text for root user.
+
+      ```
+      yum install -y chronie
+      ```
+
+      ```
+      crontab -e -u root
+      ```
+
+      ```
+      */5 * * * * echo hello > /tmp/cron_text
+      ```
