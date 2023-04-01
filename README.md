@@ -161,3 +161,17 @@ b. Add a cron */5 * * * * echo hello > /tmp/cron_text for root user.
       nameserver 8.8.8.8
       nameserver 8.8.4.4
       ```
+
+12. New tools have been installed on the app server in Stratos Datacenter. Some of these tools can only be managed from the graphical user interface. Therefore, there are requirements for these app servers. On all App servers in Stratos Datacenter change the default runlevel so that they can boot in GUI (graphical user interface) by default. Please do not try to reboot these servers.
+
+      Check current default run level :
+
+      ```
+      systemctl get-default
+      ```
+
+      Set graphical user interface as default run level :
+      
+      ```
+      systemctl set-default graphical.target
+      ```
