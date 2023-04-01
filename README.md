@@ -243,3 +243,93 @@ Create a user named rose in App Server 1 without a home directory.
       ```
       sudo useradd --no-create-home rose
       ```
+
+
+18. The system admins team of xFusionCorp Industries has set up some scripts on jump host that run on regular intervals and perform operations on all app servers in Stratos Datacenter. To make these scripts work properly we need to make sure the thor user on jump host has password-less SSH access to all app servers through their respective sudo users (i.e tony for app server 1). Based on the requirements, perform the following:
+Set up a password-less authentication from user thor on jump host to all app servers through their respective sudo users.
+
+      ```
+      ssh-keygen
+      ```
+
+      ```
+      ssh-copy-id
+      ```
+
+
+19. The production support team of xFusionCorp Industries is working on developing some bash scripts to automate different day to day tasks. One is to create a bash script for taking websites backup. They have a static website running on App Server 3 in Stratos Datacenter, and they need to create a bash script named blog_backup.sh which should accomplish the following tasks. (Also remember to place the script under /scripts directory on App Server 3)
+
+      a. Create a zip archive named xfusioncorp_blog.zip of /var/www/html/blog directory.
+
+      b. Save the archive in /backup/ on App Server 3. This is a temporary storage, as backups from this location will be clean on weekly basis. Therefore, we also need to save this backup archive on Nautilus Backup Server.
+
+      c. Copy the created archive to Nautilus Backup Server server in /backup/ location.
+
+      d. Please make sure script won't ask for password while copying the archive file. Additionally, the respective server user (for example, tony in case of App Server 1) must be able to run it.
+
+
+
+      ```
+      #!bin/bash
+
+      zip -r /backup/xfusioncorp_blog.zip /var/www/html/blog
+      scp /backup/xfusioncorp_blog.zip clint@stbkp01:/backup/
+      ```
+
+      ```
+         [banner@stapp03 ~]$ ssh-keygen
+         Generating public/private rsa key pair.
+         Enter file in which to save the key (/home/banner/.ssh/id_rsa): 
+         Enter passphrase (empty for no passphrase): 
+         Enter same passphrase again: 
+         Your identification has been saved in /home/banner/.ssh/id_rsa.
+         Your public key has been saved in /home/banner/.ssh/id_rsa.pub.
+         The key fingerprint is:
+         SHA256:jvziE5IdZ2dOumUedxv47Pz6BdvXj3wVlQXEW0rnne8 banner@stapp03.stratos.xfusioncorp.com
+         The key's randomart image is:
+         +---[RSA 2048]----+
+         |             oo.+|
+         |              o.+|
+         |             . *+|
+         |      . o +   ooo|
+         |     o +S*   .. o|
+         |    o.oo. = o o++|
+         |     .o..= o +.+*|
+         |      o.. .  o+.E|
+         |     ..o.    .*=+|
+         +----[SHA256]-----+
+         [banner@stapp03 ~]$
+      ```
+
+      ```
+      [banner@stapp03 ~]$ ssh-copy-id clint@stbkp01
+      /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/banner/.ssh/id_rsa.pub"
+      The authenticity of host 'stbkp01 (172.16.238.16)' can't be established.
+      ECDSA key fingerprint is SHA256:4BxsdumkCB1lr6ItcFDwzXHvQcXGS6bX06sZi566hso.
+      ECDSA key fingerprint is MD5:a3:90:67:b3:fc:81:3a:3b:9f:24:1d:6e:ce:ce:27:b8.
+      Are you sure you want to continue connecting (yes/no)? yes
+      /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+      /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+      clint@stbkp01's password: 
+
+      Number of key(s) added: 1
+
+      Now try logging into the machine, with:   "ssh 'clint@stbkp01'"
+      and check to make sure that only the key(s) you wanted were added.
+
+      [banner@stapp03 ~]$
+      ```
+
+      ```
+      [banner@stapp03 ~]$ sudo chmod +x /scripts/blog_backup.sh
+
+      We trust you have received the usual lecture from the local System
+      Administrator. It usually boils down to these three things:
+
+      #1) Respect the privacy of others.
+      #2) Think before you type.
+      #3) With great power comes great responsibility.
+
+      [sudo] password for banner: 
+      [banner@stapp03 ~]$
+      ```
