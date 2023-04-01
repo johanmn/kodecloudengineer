@@ -175,3 +175,19 @@ b. Add a cron */5 * * * * echo hello > /tmp/cron_text for root user.
       ```
       systemctl set-default graphical.target
       ```
+
+13. After doing some security audits of servers, xFusionCorp Industries security team has implemented some new security policies. One of them is to disable direct root login through SSH.
+    Disable direct SSH root login on all app servers in Stratos Datacenter
+
+      Open a file editor and modify  /etc/ssh/sshd_config file.
+      Uncomment "#PermitRootLogin yes"
+
+      ```
+      PermitRootLogin no
+      ```
+
+      Then restart sshd service so that the changes take effect
+
+      ```
+      systemctl restart sshd
+      ```
