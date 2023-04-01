@@ -366,3 +366,45 @@ Set up a password-less authentication from user thor on jump host to all app ser
       ```
       yum install wget --enablerepo=localyum
       ```
+
+21. During a recent security audit, the application security team of xFusionCorp Industries found security issues with the Apache web server on Nautilus App Server 2 server in Stratos DC. They have listed several security issues that need to be fixed on this server. Please apply the security settings below:
+
+
+      a. On Nautilus App Server 2 it was identified that the Apache web server is exposing the version number. Ensure this server has the appropriate settings to hide the version number of the Apache web server.
+
+      b. There is a website hosted under /var/www/html/official on App Server 2. It was detected that the directory /official lists all of its contents while browsing the URL. Disable the directory browser listing in Apache config.
+
+      c. Also make sure to restart the Apache service after making the changes.
+
+      Add "ServerTokens Prod" to /etc/httpd/conf/httpd.conf
+
+
+      ```
+         <Directory "/var/www/html">
+            #
+            # Possible values for the Options directive are "None", "All",
+            # or any combination of:
+            #   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews
+            #
+            # Note that "MultiViews" must be named *explicitly* --- "Options All"
+            # doesn't give it to you.
+            #
+            # The Options directive is both complicated and important.  Please see
+            # http://httpd.apache.org/docs/2.4/mod/core.html#options
+            # for more information.
+            #
+            Options -Indexes 
+
+            #
+            # AllowOverride controls what directives may be placed in .htaccess files.
+            # It can be "All", "None", or any combination of the keywords:
+            #   Options FileInfo AuthConfig Limit
+            #
+            AllowOverride None
+
+            #
+            # Controls who can get stuff from this server.
+            #
+            Require all granted
+         </Directory>
+      ```
