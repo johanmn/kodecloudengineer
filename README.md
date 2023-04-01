@@ -191,3 +191,23 @@ b. Add a cron */5 * * * * echo hello > /tmp/cron_text for root user.
       ```
       systemctl restart sshd
       ```
+
+14. There is some data on Nautilus App Server 1 in Stratos DC. Data needs to be altered in several of the files. On Nautilus App Server 1, alter the /home/BSD.txt file as per details given below:
+
+      a. Delete all lines containing word following and save results in /home/BSD_DELETE.txt file. (Please be aware of case sensitivity)
+      
+      b. Replace all occurrence of word and to is and save results in /home/BSD_REPLACE.txt file.
+      
+      Note: Let's say you are asked to replace word to with from. In that case, make sure not to alter any words containing this string; for example upto, contributor etc.
+
+      For a 
+
+      ```
+      sed '/\<following\>/d' /home/BSD.txt > /home/BSD_DELETE.txt
+      ```
+
+      For b
+
+      ```
+      sed 's/\band\b/is/g' BSD.txt > BSD_REPLACE.txt
+      ```
