@@ -408,3 +408,45 @@ Set up a password-less authentication from user thor on jump host to all app ser
             Require all granted
          </Directory>
       ```
+
+
+22. The Nautilus devops team got some requirements related to some Apache config changes. They need to setup some redirects for some URLs. There might be some more changes need to be done. Below you can find more details regarding that:
+
+      httpd is already installed on app server 3. Configure Apache to listen on port 3001.
+
+      Configure Apache to add some redirects as mentioned below:
+
+      a.) Redirect http://stapp03.stratos.xfusioncorp.com:<Port>/ to http://www.stapp03.stratos.xfusioncorp.com:<Port>/ i.e non www to www. This must be a permanent redirect i.e 301
+
+      b.) Redirect http://www.stapp03.stratos.xfusioncorp.com:<Port>/blog/ to http://www.stapp03.stratos.xfusioncorp.com:<Port>/news/. This must be a temporary redirect i.e 302.
+
+
+      ```
+
+      Listen 3001
+
+
+      <VirtualHost *:3001>
+         ServerName stapp03.stratos.xfusioncorp.com
+         ServerAlias www.stapp03.stratos.xfusioncorp.com
+    
+         # Redirect non-www to www with 301 permanent redirect
+         RewriteEngine On
+         #RewriteCond %{HTTP_HOST} ^stapp03\.stratos\.xfusioncorp\.com$ [NC]
+         #RewriteRule ^(.*)$ http://www.stapp03.stratos.xfusioncorp.com$1 [L,R=301]
+         RewriteCond %{HTTP_HOST} !^www\. [NC]
+         RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    
+         # Redirect /blog to /news with 302 temporary redirect
+         RewriteRule ^/blog/(.*)$ /news/$1 [L,R=302]
+    
+         # Set the document root and directory
+         DocumentRoot "/var/www/html"
+         <Directory "/var/www/html">
+            Options FollowSymLinks
+            AllowOverride All
+            Require all granted
+         </Directory>
+      </VirtualHost>
+      ```
