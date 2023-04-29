@@ -450,3 +450,86 @@ Set up a password-less authentication from user thor on jump host to all app ser
          </Directory>
       </VirtualHost>
       ```
+
+23. The system admins team of xFusionCorp Industries needs to deploy a new application on App Server 2 in Stratos Datacenter. They have some pre-requites to get ready that server for application deployment. Prepare the server as per requirements shared below:
+
+      a. Install and configure nginx on App Server 2.
+
+      b. On App Server 2 there is a self signed SSL certificate and key present at location /tmp/nautilus.crt and /tmp/nautilus.key. Move them to some appropriate location and deploy the same in Nginx.
+      
+      c. Create an index.html file with content Welcome! under Nginx document root.
+
+      For final testing try to access the App Server 2 link (either hostname or IP) from jump host using curl command. For example curl -Ik https://<app-server-ip>/.
+
+
+      ```
+      yum install -y epel-release
+      ```
+
+      ```
+      yum install -y nginx
+      ```
+
+      ```
+      systemctl enable nginx && systemctl start nginx
+      ```
+
+      ```
+      mkdir /etc/nginx/ssl/
+      ```
+
+      ```
+      cp /tmp/nautilus.crt /etc/nginx/ssl/
+      cp /tmp/nautilus.key /etc/nginx/ssl/
+      ```
+
+      ```
+      vi /etc/nginx/nginx.conf
+      ```
+
+      Uncomment the tls section part and modify the path of the ssl_certificate and ssl_certificate_key as followed:
+
+      ```
+      # Settings for a TLS enabled server.
+
+         server {
+            listen       443 ssl http2;
+            listen       [::]:443 ssl http2;
+            server_name  _;
+            root         /usr/share/nginx/html;
+
+            ssl_certificate "/etc/nginx/ssl/nautilus.crt";
+            ssl_certificate_key "/etc/nginx/ssl/nautilus.key";
+            ssl_session_cache shared:SSL:1m;
+            ssl_session_timeout  10m;
+            ssl_ciphers HIGH:!aNULL:!MD5;
+            ssl_prefer_server_ciphers on;
+
+            # Load configuration files for the default server block.
+            include /etc/nginx/default.d/*.conf;
+
+            error_page 404 /404.html;
+                  location = /40x.html {
+            }
+
+            error_page 500 502 503 504 /50x.html;
+                  location = /50x.html {
+            }
+         }
+    ```
+
+    ```
+    systemctl reload nginx
+    ```
+
+
+    
+    modify index.html in /usr/share/nginx/html
+
+    ```
+    curl -Ik https://<app-server-ip>/ from jump host
+    ```
+    
+
+
+
