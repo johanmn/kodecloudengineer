@@ -626,5 +626,11 @@ Set up a password-less authentication from user thor on jump host to all app ser
       find /var/www/html/blog/ -type f -name "*.php" -exec cp --parents {} /blog \;
       ```
 
+27. As per new application requirements shared by the Nautilus project development team, serveral new packages need to be installed on all app servers in Stratos Datacenter. Most of them are completed except for git. Therefore, install the git package on all app-servers.
+
+      ```
+      yum install -y git
+      ```
+
 
 
