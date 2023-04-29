@@ -530,6 +530,71 @@ Set up a password-less authentication from user thor on jump host to all app ser
     curl -Ik https://<app-server-ip>/ from jump host
     ```
     
+24. We are working on hardening Apache web server on all app servers. As a part of this process we want to add some of the Apache response headers for security purpose. We are testing the settings one by one on all app servers. As per details mentioned below enable these headers for Apache:
+
+      Install httpd package on App Server 1 using yum and configure it to run on 5003 port, make sure to start its service.
+      Create an index.html file under Apache's default document root i.e /var/www/html and add below given content in it :
+      
+      ```
+      Welcome to the xFusionCorp Industries!
+      ```
+
+      
+      Configure Apache to enable below mentioned headers:
+
+      ```
+      X-XSS-Protection header with value 1; mode=block
+      X-Frame-Options header with value SAMEORIGIN
+      X-Content-Type-Options header with value nosniff
+      ```
+
+      Note: You can test using curl on the given app server as LBR URL will not work for this task.
+
+
+      ```
+      yum install -y httpd
+      ```
+
+      ```
+      vi /var/www/html/index.html
+      ```
+
+      ```
+      Welcome to the xFusionCorp Industries!
+      ```
+
+      ```
+      vi /etc/httpd/conf/httpd.conf :
+
+      Listen 80 ==> Listen 5003
+
+      <IfModule mod_headers.c>
+         Header set X-XSS-Protection "1; mode=block"
+         Header always set X-Frame-Options SAMEORIGIN
+         Header set X-Content-Type-Options nosniff
+      </IfModule>
+      ```
+
+      ```
+      systemctl restart httpd
+      ```
+      
+      ```
+      [root@stapp01 html]# curl -IL http://localhost:5003
+      HTTP/1.1 200 OK
+      Date: Tue, 04 Apr 2023 04:36:46 GMT
+      Server: Apache/2.4.6 (CentOS)
+      X-Frame-Options: SAMEORIGIN
+      Last-Modified: Tue, 04 Apr 2023 04:30:20 GMT
+      ETag: "27-5f87b221986d1"
+      Accept-Ranges: bytes
+      Content-Length: 39
+      X-XSS-Protection: 1; mode=block
+      X-Content-Type-Options: nosniff
+      Content-Type: text/html; charset=UTF-8
+ 
+      [root@stapp01 html]#
+      ```
 
 
 
